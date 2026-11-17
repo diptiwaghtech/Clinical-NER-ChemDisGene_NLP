@@ -1,7 +1,7 @@
 # Project Report: Three-Class Biomedical Named Entity Recognition
 
 ## 1. Objective
-Build an end-to-end NLP system that identifies and classifies chemical, disease and gene/gene-product mentions in biomedical text. The work follows the Clinical NER Candidate Assessment and demonstrates data preparation, feature engineering, a meaningful baseline, a trained model, evaluation, error analysis and reusable inference.
+Build an end-to-end NLP system that identifies and classifies chemical, disease and gene/gene-product mentions in biomedical text. The work follows the Clinical NER Assessment and demonstrates data preparation, feature engineering, a meaningful baseline, a trained model, evaluation, error analysis and reusable inference.
 
 ## 2. Dataset and task framing
 The project uses the curated ChemDisGene PubTator abstracts distributed through the Hugging Face `bigbio/chem_dis_gene` dataset. It includes mention-level annotations for chemical, disease and gene/gene-product entities. The selected source is biomedical abstracts rather than actual patient clinical notes. Consequently, this is a biomedical NER demonstration aligned with the assessment's three entity classes, not evidence of clinical deployment readiness.
@@ -42,9 +42,9 @@ The primary evaluation is exact entity-span matching. A prediction counts as cor
 - Recall = TP / (TP + FN)
 - F1 = 2 × Precision × Recall / (Precision + Recall)
 
-The evaluation script also exports false positives and false negatives. Review these examples to understand boundary errors, ambiguous mentions, unseen vocabulary and annotation gaps.
+The evaluation script also exports false positives and false negatives.
 
-**Results:** Run `python -m src.train` followed by `python -m src.evaluate`. The actual measured metrics are written to `reports/metrics.json` and `reports/classification_report.txt`. No benchmark score is pre-filled because it must be measured on the generated held-out test split in the user's environment.
+**Results:** Run `python -m src.train` followed by `python -m src.evaluate`. The actual measured metrics are written to `reports/metrics.json` and `reports/classification_report.txt`.
 
 ## 9. Error analysis questions
 When reviewing `reports/error_analysis.csv`, investigate:
@@ -53,7 +53,7 @@ When reviewing `reports/error_analysis.csv`, investigate:
 3. Are multi-token mentions predicted with incomplete boundaries?
 4. Are chemical and gene names confused?
 5. Does punctuation or hyphenation cause token-boundary problems?
-6. Are there annotation omissions or inconsistencies in the gold source?
+6. Are there annotation inconsistencies in the source?
 
 ## 10. Limitations and next steps
 - The corpus consists of biomedical abstracts, not de-identified hospital notes.

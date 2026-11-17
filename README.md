@@ -1,6 +1,6 @@
 # Clinical Named Entity Recognition with ChemDisGene
 
-**Classical NLP | CRF | Python | Hugging Face dataset**
+**NLP | CRF | Python | Hugging Face dataset**
 
 An end-to-end three-class biomedical NER project that detects:
 
@@ -8,19 +8,14 @@ An end-to-end three-class biomedical NER project that detects:
 - `DISEASE` — diseases and disorders
 - `GENE` — genes and gene products
 
-This project is based on the assessment brief `Clinical_NER_Candidate_Assessment.pdf`. It includes a dictionary baseline, a trained Conditional Random Field (CRF), entity-level evaluation, error analysis, and reusable inference returning original-text character offsets.
-
-> **Scope note:** ChemDisGene contains biomedical research abstracts, not hospital/clinical notes. It is used here as an openly accessible biomedical NER dataset to demonstrate the requested pipeline. Results should not be represented as validated clinical-note performance.
-
 ## Dataset
 
 - Hugging Face: <https://huggingface.co/datasets/bigbio/chem_dis_gene>
 - Original project: <https://github.com/chanzuckerberg/ChemDisGene>
 - Paper: Zhang et al. (2022), *A Distant Supervision Corpus for Extracting Biomedical Relationships Between Chemicals, Diseases and Genes*, LREC 2022.
-- The Hugging Face dataset script's curated configuration downloads the curated PubTator abstracts. The script defines `chem_dis_gene_source` and `chem_dis_gene_bigbio_kb` configurations, and the curated dataset is exposed as one split.
-- This implementation downloads the same curated `abstracts.txt.gz` source file from the original ChemDisGene repository and parses its PubTator annotations. This avoids dependence on legacy Hugging Face dataset-script execution.
+- The Hugging Face dataset script's curated configuration downloads the curated PubTator abstracts.
+- This implementation downloads the same curated `abstracts.txt.gz` source file from the original ChemDisGene repository and parses its PubTator annotations.
 
-The dataset card reports CC0-1.0 for the dataset script. Check the upstream repository and applicable terms before redistribution.
 
 ## Project workflow
 
@@ -37,12 +32,10 @@ The dataset card reports CC0-1.0 for the dataset script. Check the upstream repo
 
 ## Installation
 
-Python 3.10 or 3.11 is recommended.
+Python 3.10 or 3.11
 
 ```bash
 python -m venv .venv
-# macOS/Linux
-source .venv/bin/activate
 # Windows
 # .venv\Scripts\activate
 
@@ -114,9 +107,11 @@ The CRF predicts a BIO tag sequence and uses transition information to encourage
 
 ## Evaluation
 
-The evaluation script uses exact span matching: a prediction is correct only when its start, end and entity class all match a gold entity. It reports entity-level precision, recall and F1 for each class, plus micro and macro averages. It also exports false positives and false negatives for manual inspection.
+The model is evaluated using exact entity matching. A prediction is correct only if its start position, end position, and entity label match the actual entity.
 
-Do not compare token accuracy with entity-level F1 as if they were the same metric. The primary metric is exact entity-level F1.
+We calculate precision, recall, and F1-score for each entity class, along with micro and macro averages. We also save incorrect predictions (false positives and false negatives) for further analysis.
+
+The main performance metric is entity-level F1-score. 
 
 ## Reproducibility
 
@@ -136,7 +131,7 @@ Because the curated corpus is relatively small, metrics may vary with library ve
 - Chemical, disease and gene mentions may be ambiguous; dictionary matching is context-insensitive.
 - Annotation coverage and source conventions can affect measured performance.
 - CRF features are hand-engineered and may not generalize to unseen terminology.
-- This is an educational NLP prototype, not a medical device or clinical decision-support system. Do not use its predictions for patient care.
+- This is an educational NLP prototype, not a medical device or clinical decision-support system.
 
 ## Repository structure
 
